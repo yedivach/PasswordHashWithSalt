@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -54,15 +55,23 @@ namespace WindowsFormsApp1
 
         private void button1_Click(object sender, EventArgs e)
         {
+
             if(Salt == "")
             {
                 System.Windows.Forms.MessageBox.Show("You have to choose Salt!");
             }
             else
             {
+
+                Stopwatch stopWatch = new Stopwatch();  // Calculate time:
+                 stopWatch.Start();  // Calculate time:
+
                 string ans = CreateToken(webSiteAddres.Text, Password.Text + Salt );
                 Console.WriteLine("Salt: "+Salt +"\n password Text: " + Password.Text + "\n ");
                 HashedPassword.Text = (ans);
+
+                stopWatch.Stop();  // Calculate time:
+                TimeOfCalc.Text = stopWatch.ElapsedMilliseconds.ToString();// display the time
             }
 
         }
@@ -95,20 +104,23 @@ namespace WindowsFormsApp1
         {
             if(Generate_Salt.Checked)
             {
+                Console.Write("line 107");
                 // This line calls the folder diag
                 System.Windows.Forms.FolderBrowserDialog dlg = new System.Windows.Forms.FolderBrowserDialog();
                 // This is what will execute if the user selects a folder and hits OK (File if you change to FileBrowserDialog)
+                Console.Write("line 111");
                 if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
+                    Console.Write("line 114");
                     saltPath =dlg.SelectedPath+ "\\Salt.txt";
-                    
-                     string randomString = RandomString(20);
+                    Console.Write("line 116");
+                    string randomString = RandomString(20);
                     System.Windows.Forms.MessageBox.Show(saltPath);
                     // WriteAllText creates a file, writes the specified string to the file,
                     // and then closes the file.    You do NOT need to call Flush() or Close().
-
-                     System.IO.File.WriteAllText(@saltPath, randomString);
-
+                    Console.Write("line 121");
+                    System.IO.File.WriteAllText(@saltPath, randomString);
+                    Console.Write("line 123");
                 }
                 else
                 {
