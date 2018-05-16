@@ -71,7 +71,16 @@ namespace WindowsFormsApp1
                 HashedPassword.Text = (ans);
 
                 stopWatch.Stop();  // Calculate time:
-                TimeOfCalc.Text = stopWatch.ElapsedMilliseconds.ToString();// display the time
+                long time = stopWatch.ElapsedMilliseconds;
+                if(time == 0)
+                {
+                    TimeOfCalc.Text = "Less than 1"; // display the time
+                }
+                else
+                {
+                    TimeOfCalc.Text = time.ToString();// display the time
+                }
+             
             }
 
         }
@@ -161,6 +170,11 @@ namespace WindowsFormsApp1
 
 
             }
+        }
+
+        private void TimeOfCalc_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
